@@ -1,0 +1,6 @@
+{
+  "name": "KG Realty Group",
+  "description": "KG Realty Group at eXp Realty led by Kevin Gonzalez - premier real estate services in Chino Hills, Orange County, and Southern California.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

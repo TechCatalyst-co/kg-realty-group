@@ -1,0 +1,174 @@
+{
+  "brand": {
+    "name": "KG Realty Group",
+    "brokerage": "eXp Realty",
+    "category": "Residential real estate",
+    "audience": "Home buyers, sellers, and investors in Chino Hills and Southern California",
+    "positioning": "Experienced, personal representation with the polish and confidence of a premium real estate brand",
+    "personality": [
+      "confident",
+      "refined",
+      "trustworthy",
+      "local",
+      "personal"
+    ],
+    "promise": "Clarity builds confidence.",
+    "source": {
+      "type": "Approximate visual interpretation of the supplied Kevin Gonzalez banner",
+      "note": "These colors are design estimates, not verified official brand specifications."
+    }
+  },
+  "identity": {
+    "visualIdea": "A precise KG monogram and architectural diagonal framing that suggest a considered path into a home.",
+    "logoUsage": {
+      "primary": "Use the supplied KG Realty Group artwork without redrawing, distorting, or recoloring it.",
+      "clearSpace": "Keep at least the height of the K monogram clear on every side.",
+      "minimumSize": "Use the full wordmark only when KG Realty Group remains readable; switch to approved monogram artwork at smaller sizes.",
+      "backgrounds": "Prefer charcoal or white backgrounds with sufficient contrast. Do not place gold artwork on a busy photograph.",
+      "brokerage": "Keep eXp Realty attribution legible and visually distinct from the KG Realty Group wordmark."
+    },
+    "motifs": [
+      "Architectural diagonals and frames",
+      "Subtle measured grid lines",
+      "Clean rules and generous negative space"
+    ]
+  },
+  "palette": {
+    "sourceNote": "Hex values are approximations informed by the supplied banner and tuned for practical interface use.",
+    "colors": {
+      "ink": {
+        "value": "#111111",
+        "role": "Primary dark background, footer, and high-emphasis text"
+      },
+      "charcoal": {
+        "value": "#1B1B1B",
+        "role": "Secondary dark surface, overlays, and navigation details"
+      },
+      "gold": {
+        "value": "#C7A44A",
+        "role": "Brand accent for large marks, rules, selected states, and decorative details"
+      },
+      "goldLight": {
+        "value": "#E5CF7A",
+        "role": "Gold highlight and accent text on dark backgrounds"
+      },
+      "goldDeep": {
+        "value": "#765A1D",
+        "role": "Accessible gold-toned text and icons on light backgrounds"
+      },
+      "goldPale": {
+        "value": "#F7F2E3",
+        "role": "Quiet highlighted surface"
+      },
+      "paper": {
+        "value": "#F7F6F2",
+        "role": "Warm neutral page or section background"
+      },
+      "white": {
+        "value": "#FFFFFF",
+        "role": "Primary content surface and text on dark backgrounds"
+      },
+      "text": {
+        "value": "#202020",
+        "role": "Primary text on light backgrounds"
+      },
+      "mutedText": {
+        "value": "#66635D",
+        "role": "Secondary text on light backgrounds"
+      },
+      "border": {
+        "value": "#E2DED3",
+        "role": "Subtle dividers, input borders, and card outlines"
+      },
+      "success": {
+        "value": "#28634A",
+        "role": "Positive confirmation state"
+      },
+      "warning": {
+        "value": "#805A18",
+        "role": "Warning state"
+      },
+      "danger": {
+        "value": "#A63232",
+        "role": "Error and destructive state only; not a brand accent"
+      }
+    },
+    "usage": {
+      "darkSections": "Use ink or charcoal with white text; reserve gold for prominent accents and identity details.",
+      "contentSections": "Use white or paper backgrounds with ink text and mutedText for secondary copy.",
+      "primaryActions": "On light surfaces, use an ink button with goldLight text or an accessible goldDeep accent treatment. On dark surfaces, use gold with ink text.",
+      "goldContrast": "Do not use gold or goldLight as small text on white. Use goldDeep on light backgrounds and goldLight on dark backgrounds.",
+      "functionalColors": "Keep success, warning, and danger reserved for their interface meanings."
+    }
+  },
+  "typography": {
+    "display": {
+      "family": "Montserrat",
+      "usage": "Headlines, navigation, prices, and short uppercase labels",
+      "weight": "600-800"
+    },
+    "body": {
+      "family": "Plus Jakarta Sans",
+      "usage": "Paragraphs, forms, listing details, and supporting interface text",
+      "weight": "400-600"
+    },
+    "wordmark": {
+      "family": "Use the supplied logo artwork; do not substitute a typeface for the logo",
+      "usage": "Brand lockup only"
+    },
+    "principles": [
+      "Use clear scale contrast and compact, deliberate line lengths.",
+      "Keep body copy highly readable and avoid overusing uppercase tracking.",
+      "Use gold typography sparingly and only where the background provides sufficient contrast."
+    ]
+  },
+  "interface": {
+    "surfaces": {
+      "identity": "Ink or charcoal for the footer, selected brand bands, and high-impact identity moments.",
+      "content": "White or paper for search, listings, profiles, forms, and long-form content.",
+      "cards": "Use restrained borders and shadows; keep property photography as the focal point."
+    },
+    "components": {
+      "navigation": "Light and quiet by default, with charcoal text and gold or goldDeep active accents.",
+      "primaryAction": "High-contrast ink-and-gold treatment; avoid low-contrast gold text on white.",
+      "secondaryAction": "Outlined or text action using ink, with gold reserved for hover or active emphasis.",
+      "forms": "White fields, clear neutral borders, ink text, and a visible gold or charcoal focus ring.",
+      "listingStatus": "Use neutral or functional status treatments; do not use the brand accent to imply success or danger."
+    },
+    "shape": "Square-cornered or subtly rounded controls; avoid excessive pill shapes.",
+    "depth": "Use small, soft shadows only when needed to distinguish interactive surfaces."
+  },
+  "imagery": {
+    "subjects": [
+      "Architectural homes and interiors in Southern California",
+      "Kevin Gonzalez and the team in authentic, professional portraits",
+      "Neighborhood details that identify local communities"
+    ],
+    "treatment": "Natural warm light, crisp architectural detail, editorial crops, and restrained charcoal overlays where text is placed over photography.",
+    "avoid": [
+      "Generic office stock photography",
+      "Heavy gold filters or artificial metallic effects",
+      "Busy backgrounds behind logos or essential text"
+    ]
+  },
+  "accessibility": {
+    "contrast": "Maintain WCAG AA contrast for text and essential interface controls. Verify final pairings in the rendered site.",
+    "focus": "Provide a clearly visible keyboard focus indicator on every interactive element.",
+    "motion": "Respect prefers-reduced-motion for transitions and scroll behavior.",
+    "colorMeaning": "Do not communicate listing status, errors, or success through color alone."
+  },
+  "implementation": {
+    "fontFamilies": "Matches the current Plus Jakarta Sans and Montserrat theme families.",
+    "migration": "Replace legacy red brand accents with semantic ink and gold tokens in component styles; preserve red only where it carries a genuine functional meaning.",
+    "tokenNames": [
+      "brand-ink",
+      "brand-charcoal",
+      "brand-gold",
+      "brand-gold-light",
+      "brand-gold-deep",
+      "brand-gold-pale",
+      "brand-paper",
+      "brand-border"
+    ]
+  }
+}
