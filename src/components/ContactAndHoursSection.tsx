@@ -24,9 +24,7 @@ export const ContactAndHoursSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         {/* Section Header */}
         <div className="text-center mb-14">
-          <span className="text-xs font-bold uppercase tracking-widest text-neutral-400 font-display">
-            Direct Representation & Consultations
-          </span>
+
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-neutral-900 tracking-tight font-display mt-1">
             Contact
           </h2>
@@ -79,10 +77,13 @@ export const ContactAndHoursSection: React.FC = () => {
                     </div>
                     <a
                       href={`tel:${BUSINESS_DATA.contact.phone.replace(/[^0-9]/g, '')}`}
-                      className="font-bold text-neutral-900 hover:text-brand-gold-deep transition-colors text-base"
+                      className="font-bold text-neutral-900 hover:text-brand-gold-deep transition-colors text-base block"
                     >
                       {BUSINESS_DATA.contact.phone}
                     </a>
+                    <div className="mt-2 inline-flex items-center rounded-full border border-brand-gold/50 bg-brand-gold-pale px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-brand-gold-deep font-display align-middle">
+                      Hablamos Español
+                    </div>
                   </div>
                 </div>
 

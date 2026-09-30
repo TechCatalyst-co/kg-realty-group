@@ -40,6 +40,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
               <Mail className="w-3 h-3 text-brand-gold-light" />
               <span>{BUSINESS_DATA.contact.email}</span>
             </a>
+            <span className="hidden lg:inline-flex items-center border-l border-white/20 pl-3 text-[11px] font-semibold text-brand-gold-light">
+              Hablamos Español
+            </span>
           </div>
         </div>
       </div>
