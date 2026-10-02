@@ -30,7 +30,7 @@ export const FeaturedListingsSection: React.FC<FeaturedListingsSectionProps> = (
             title="CRMLS agent listings"
             src="https://www.crmls.org/servlet/lDisplayListings?OFFICE=52881&LA=EN"
             className="block h-[1000px] w-full"
-            loading="lazy"
+            loading="eager"
           />
         </div>
 
