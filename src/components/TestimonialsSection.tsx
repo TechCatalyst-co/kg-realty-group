@@ -14,7 +14,7 @@ export const TestimonialsSection: React.FC = () => {
           <div className="inline-flex items-center gap-3 rounded-full border border-brand-gold/60 bg-[#1b1b1b] px-4 py-2 mb-5 shadow-[0_0_0_1px_rgba(199,164,74,0.18)]">
             <div className="flex items-center justify-center gap-1 text-brand-gold-light">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-3.5 h-3.5 fill-brand-gold-light text-brand-gold-light" />
+                <Star key={i} aria-hidden="true" className="w-3.5 h-3.5 fill-brand-gold-light text-brand-gold-light" />
               ))}
             </div>
             <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-brand-gold-light font-display">
@@ -38,7 +38,7 @@ export const TestimonialsSection: React.FC = () => {
               <div className="mb-5 flex items-center justify-between gap-3">
                 <div className="flex items-center gap-1 text-brand-gold-light">
                   {[...Array(testimonial.rating)].map((_, index) => (
-                    <Star key={`${testimonial.id}-star-${index}`} className="w-4 h-4 fill-brand-gold-light text-brand-gold-light" />
+                    <Star key={`${testimonial.id}-star-${index}`} aria-hidden="true" className="w-4 h-4 fill-brand-gold-light text-brand-gold-light" />
                   ))}
                 </div>
                 <span className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 font-display">

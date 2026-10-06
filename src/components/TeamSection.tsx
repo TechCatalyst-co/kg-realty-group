@@ -67,7 +67,7 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ onContactMember }) => 
                   {member.rating && (
                     <div className="mt-1.5 flex items-center gap-1.5 text-xs">
                       <div className="flex text-amber-500">
-                        <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                        <Star aria-hidden="true" className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
                       </div>
                       <span className="font-bold text-neutral-800">{member.rating.toFixed(1)}</span>
                       {member.reviews && (
@@ -111,7 +111,7 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ onContactMember }) => 
                     className="w-full bg-neutral-900 hover:bg-brand-ink text-brand-gold-light py-2 text-[11px] font-bold uppercase tracking-wider rounded-xs transition-colors cursor-pointer flex items-center justify-center gap-1"
                   >
                     <span>Connect</span>
-                    <ArrowRight className="w-3 h-3" />
+                    <ArrowRight aria-hidden="true" className="w-3 h-3" />
                   </button>
                 </div>
               </div>

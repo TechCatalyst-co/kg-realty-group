@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Menu, X, Plus, Phone, Mail, MapPin } from 'lucide-react';
 import { BUSINESS_DATA } from '../data/realtyData';
+import { useDialogAccessibility } from '../hooks/useDialogAccessibility';
 
 interface NavbarProps {
   onOpenContact: () => void;
@@ -8,6 +9,8 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const drawerRef = useDialogAccessibility<HTMLDivElement>(mobileMenuOpen, () => setMobileMenuOpen(false));
+  const sectionHref = (section: string) => `${window.location.pathname === '/' ? '' : '/'}#${section}`;
 
   return (
     <header className="sticky top-0 z-50 bg-brand-ink border-b border-white/10 shadow-xs">
@@ -23,11 +26,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
               href={`tel:${BUSINESS_DATA.contact.phone.replace(/[^0-9]/g, '')}`}
               className="flex items-center gap-1.5 hover:text-brand-gold-light transition-colors"
             >
-              <Phone className="w-3 h-3 text-brand-gold-light" />
+              <Phone aria-hidden="true" className="w-3 h-3 text-brand-gold-light" />
               {BUSINESS_DATA.contact.phone}
             </a>
             <span className="hidden md:flex items-center gap-1.5 hover:text-brand-gold-light transition-colors">
-              <MapPin className="w-3 h-3 text-brand-gold-light" />
+              <MapPin aria-hidden="true" className="w-3 h-3 text-brand-gold-light" />
               {BUSINESS_DATA.contact.address.city}, {BUSINESS_DATA.contact.address.state}
             </span>
           </div>
@@ -37,7 +40,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
               href={`mailto:${BUSINESS_DATA.contact.email}`}
               className="flex items-center gap-1.5 hover:text-brand-gold-light transition-colors text-[11px] sm:text-xs"
             >
-              <Mail className="w-3 h-3 text-brand-gold-light" />
+              <Mail aria-hidden="true" className="w-3 h-3 text-brand-gold-light" />
               <span>{BUSINESS_DATA.contact.email}</span>
             </a>
             <span className="hidden lg:inline-flex items-center border-l border-white/20 pl-3 text-[11px] font-semibold text-brand-gold-light">
@@ -49,7 +52,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
 
       {/* Main Navigation Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-8 h-20 flex items-center justify-between">
-        <a href="#" className="flex items-center group text-left shrink-0">
+        <a href="/" className="flex items-center group text-left shrink-0">
           <img
             src="/kg-logo.png"
             alt="KG Realty Group logo"
@@ -60,28 +63,28 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
         {/* Desktop Nav Items */}
         <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8 text-xs font-bold tracking-wider text-neutral-100 uppercase font-display">
           <a
-            href="#featured-listings"
+            href={sectionHref('featured-listings')}
             className="hover:text-brand-gold-light transition-colors py-2"
           >
             View Listings
           </a>
 
           <a
-            href="#home-value"
+            href={sectionHref('home-value')}
             className="hover:text-brand-gold-light transition-colors py-2"
           >
             Selling
           </a>
 
           <a
-            href="#testimonials"
+            href={sectionHref('testimonials')}
             className="hover:text-brand-gold-light transition-colors py-2"
           >
             Testimonials
           </a>
 
           <a
-            href="#contact"
+            href={sectionHref('contact')}
             className="hover:text-brand-gold-light transition-colors py-2"
           >
             Contact
@@ -112,8 +115,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="p-2 text-neutral-100 hover:text-brand-gold-light focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold-light"
             aria-label="Toggle menu"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation-drawer"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X aria-hidden="true" className="w-6 h-6" /> : <Menu aria-hidden="true" className="w-6 h-6" />}
           </button>
         </div>
       </div>
@@ -121,7 +126,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 z-50 bg-neutral-950/70 backdrop-blur-xs flex justify-end">
-          <div className="w-80 max-w-full bg-neutral-950 text-neutral-100 h-full shadow-2xl flex flex-col p-6 overflow-y-auto animate-in slide-in-from-right duration-200">
+          <div
+            id="mobile-navigation-drawer"
+            ref={drawerRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile navigation"
+            tabIndex={-1}
+            className="w-80 max-w-full bg-neutral-950 text-neutral-100 h-full shadow-2xl flex flex-col p-6 overflow-y-auto animate-in slide-in-from-right duration-200"
+          >
             <div className="flex items-center justify-between pb-4 border-b border-white/10">
               <div className="font-extrabold text-base tracking-wider uppercase font-display text-white">
                 KG Realty Group
@@ -130,28 +143,29 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
                 id="close-drawer-btn"
                 onClick={() => setMobileMenuOpen(false)}
                 className="p-1 rounded-md text-neutral-300 hover:text-brand-gold-light"
+                aria-label="Close navigation menu"
               >
-                <X className="w-5 h-5" />
+                <X aria-hidden="true" className="w-5 h-5" />
               </button>
             </div>
 
             <div className="py-6 flex flex-col space-y-4 text-sm font-bold uppercase tracking-wider text-neutral-200 font-display">
               <a
-                href="#featured-listings"
+                href={sectionHref('featured-listings')}
                 onClick={() => setMobileMenuOpen(false)}
                 className="hover:text-brand-gold-light py-1 transition-colors"
               >
                 View Listings
               </a>
               <a
-                href="#testimonials"
+                href={sectionHref('testimonials')}
                 onClick={() => setMobileMenuOpen(false)}
                 className="hover:text-brand-gold-light py-1 transition-colors"
               >
                 Testimonials
               </a>
               <a
-                href="#contact"
+                href={sectionHref('contact')}
                 onClick={() => setMobileMenuOpen(false)}
                 className="hover:text-brand-gold-light py-1 transition-colors"
               >

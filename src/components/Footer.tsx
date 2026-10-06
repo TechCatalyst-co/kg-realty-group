@@ -3,6 +3,8 @@ import { Phone, Mail, MapPin, ShieldCheck, Home, Award, Heart } from 'lucide-rea
 import { BUSINESS_DATA } from '../data/realtyData';
 
 export const Footer: React.FC = () => {
+  const sectionHref = (section: string) => `${window.location.pathname === '/' ? '' : '/'}#${section}`;
+
   return (
     <footer className="bg-neutral-950 text-neutral-400 border-t border-neutral-800 text-xs">
       {/* Top Footer Area */}
@@ -24,15 +26,15 @@ export const Footer: React.FC = () => {
 
             <div className="pt-2 text-[11px] text-neutral-400 space-y-1">
               <p className="flex items-center gap-1.5 text-neutral-300">
-                <Phone className="w-3.5 h-3.5 text-neutral-400" />
+                <Phone aria-hidden="true" className="w-3.5 h-3.5 text-neutral-400" />
                 {BUSINESS_DATA.contact.phone}
               </p>
               <p className="flex items-center gap-1.5 text-neutral-300">
-                <Mail className="w-3.5 h-3.5 text-neutral-400" />
+                <Mail aria-hidden="true" className="w-3.5 h-3.5 text-neutral-400" />
                 {BUSINESS_DATA.contact.email}
               </p>
               <p className="flex items-center gap-1.5 text-neutral-300">
-                <MapPin className="w-3.5 h-3.5 text-neutral-400" />
+                <MapPin aria-hidden="true" className="w-3.5 h-3.5 text-neutral-400" />
                 {BUSINESS_DATA.contact.address.street}, {BUSINESS_DATA.contact.address.city}, {BUSINESS_DATA.contact.address.state} {BUSINESS_DATA.contact.address.zip}
               </p>
             </div>
@@ -44,10 +46,11 @@ export const Footer: React.FC = () => {
               Navigation
             </h4>
             <ul className="space-y-2 text-xs">
-              <li><a href="#featured-listings" className="hover:text-white transition-colors">Browse Listings</a></li>
-              <li><a href="#home-value" className="hover:text-white transition-colors">Home Valuation</a></li>
-              <li><a href="#testimonials" className="hover:text-white transition-colors">Client Reviews</a></li>
-              <li><a href="#contact" className="hover:text-white transition-colors">Contact & Hours</a></li>
+              <li><a href={sectionHref('featured-listings')} className="hover:text-white transition-colors">Browse Listings</a></li>
+              <li><a href={sectionHref('home-value')} className="hover:text-white transition-colors">Home Valuation</a></li>
+              <li><a href={sectionHref('testimonials')} className="hover:text-white transition-colors">Client Reviews</a></li>
+              <li><a href={sectionHref('contact')} className="hover:text-white transition-colors">Contact & Hours</a></li>
+              <li><a href="/accessibility" className="hover:text-white transition-colors">Accessibility Statement</a></li>
             </ul>
           </div>
 
@@ -102,7 +105,7 @@ export const Footer: React.FC = () => {
 
             <div className="flex items-center gap-4 text-neutral-400">
               <span className="inline-flex items-center gap-1">
-                <Home className="w-3.5 h-3.5" /> Equal Housing Opportunity
+                <Home aria-hidden="true" className="w-3.5 h-3.5" /> Equal Housing Opportunity
               </span>
               <span>•</span>
               <span>California DRE #01928491</span>

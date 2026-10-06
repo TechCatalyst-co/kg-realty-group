@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { X, Bed, Bath, Maximize2, MapPin, Calendar, Phone, Mail, CheckCircle2, DollarSign, Share2 } from 'lucide-react';
 import { PropertyListing } from '../types';
 import { BUSINESS_DATA } from '../data/realtyData';
+import { useDialogAccessibility } from '../hooks/useDialogAccessibility';
 
 interface ListingModalProps {
   listing: PropertyListing | null;
@@ -14,21 +15,27 @@ export const ListingModal: React.FC<ListingModalProps> = ({
   onClose,
   onScheduleShowing
 }) => {
-  if (!listing) return null;
-
-  const [activeImage, setActiveImage] = useState(listing.imageUrl);
+  const dialogRef = useDialogAccessibility<HTMLDivElement>(Boolean(listing), onClose);
+  const [activeImage, setActiveImage] = useState(listing?.imageUrl ?? '');
   const [requested, setRequested] = useState(false);
+
+  useEffect(() => {
+    setActiveImage(listing?.imageUrl ?? '');
+    setRequested(false);
+  }, [listing?.id, listing?.imageUrl]);
+
+  if (!listing) return null;
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200">
-      <div className="bg-white w-full max-w-4xl rounded-xs overflow-hidden shadow-2xl relative max-h-[92vh] flex flex-col">
+      <div ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="listing-dialog-title" tabIndex={-1} className="bg-white w-full max-w-4xl rounded-xs overflow-hidden shadow-2xl relative max-h-[92vh] flex flex-col">
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-200 bg-neutral-50/70">
           <div>
             <span className="text-[10px] font-bold uppercase tracking-wider text-brand-gold-deep bg-brand-gold-pale px-2 py-0.5 rounded-2xs border border-brand-border">
               {listing.status}
             </span>
-            <h3 className="text-base sm:text-lg font-bold text-neutral-900 font-display mt-0.5">
+            <h3 id="listing-dialog-title" className="text-base sm:text-lg font-bold text-neutral-900 font-display mt-0.5">
               {listing.address}
             </h3>
           </div>
@@ -38,7 +45,7 @@ export const ListingModal: React.FC<ListingModalProps> = ({
             aria-label="Close modal"
             className="p-1.5 rounded-full text-neutral-500 hover:text-neutral-900 hover:bg-neutral-200/60 transition-colors"
           >
-            <X className="w-5 h-5" />
+            <X aria-hidden="true" className="w-5 h-5" />
           </button>
         </div>
 
@@ -48,7 +55,7 @@ export const ListingModal: React.FC<ListingModalProps> = ({
           <div className="relative aspect-16/9 rounded-xs overflow-hidden bg-neutral-900 shadow-md">
             <img
               src={activeImage}
-              alt={listing.address}
+              alt={listing.address ? `Photo of ${listing.address}` : 'Property photo'}
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
             />
@@ -67,11 +74,13 @@ export const ListingModal: React.FC<ListingModalProps> = ({
                 <button
                   key={idx}
                   onClick={() => setActiveImage(url)}
+                  aria-label={`Show photo ${idx + 1} of ${listing.address || 'property'}`}
+                  aria-pressed={activeImage === url}
                   className={`w-20 h-14 shrink-0 rounded-xs overflow-hidden border-2 transition-all cursor-pointer ${
                     activeImage === url ? 'border-brand-gold scale-95' : 'border-transparent opacity-70 hover:opacity-100'
                   }`}
                 >
-                  <img src={url} alt={`Thumbnail ${idx}`} className="w-full h-full object-cover" />
+                  <img src={url} alt={`Photo ${idx + 1} of ${listing.address || 'property'}`} className="w-full h-full object-cover" />
                 </button>
               ))}
             </div>
@@ -132,7 +141,7 @@ export const ListingModal: React.FC<ListingModalProps> = ({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {listing.features.map((feat, i) => (
                   <div key={i} className="flex items-center gap-2 text-xs text-neutral-700">
-                    <CheckCircle2 className="w-4 h-4 text-brand-gold-deep shrink-0" />
+                    <CheckCircle2 aria-hidden="true" className="w-4 h-4 text-brand-gold-deep shrink-0" />
                     <span>{feat}</span>
                   </div>
                 ))}
@@ -165,7 +174,7 @@ export const ListingModal: React.FC<ListingModalProps> = ({
 
               {requested ? (
                 <div className="text-emerald-400 text-xs font-bold flex items-center gap-1.5 bg-emerald-950/80 px-4 py-2.5 rounded-xs border border-emerald-700">
-                  <CheckCircle2 className="w-4 h-4" />
+                  <CheckCircle2 aria-hidden="true" className="w-4 h-4" />
                   Showing Request Sent! Kevin will confirm shortly.
                 </div>
               ) : (

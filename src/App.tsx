@@ -10,6 +10,7 @@ import { Footer } from './components/Footer';
 import { ListingModal } from './components/ListingModal';
 import { ContactModal } from './components/ContactModal';
 import { PropertyListing } from './types';
+import { AccessibilityStatement } from './pages/AccessibilityStatement';
 
 export default function App() {
   const [selectedListing, setSelectedListing] = useState<PropertyListing | null>(null);
@@ -21,8 +22,29 @@ export default function App() {
     setIsContactOpen(true);
   };
 
+  if (window.location.pathname === '/accessibility') {
+    return (
+      <div className="min-h-screen flex flex-col bg-white text-neutral-900 font-sans">
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-white focus:px-4 focus:py-3 focus:text-neutral-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
+          Skip to main content
+        </a>
+        <Navbar onOpenContact={() => setIsContactOpen(true)} />
+        <AccessibilityStatement />
+        <Footer />
+        <ContactModal
+          isOpen={isContactOpen}
+          onClose={() => setIsContactOpen(false)}
+          prefilledTopic={contactTopic}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex flex-col bg-white text-neutral-900 font-sans selection:bg-brand-gold-light selection:text-brand-ink">
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-white focus:px-4 focus:py-3 focus:text-neutral-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
+        Skip to main content
+      </a>
       {/* Header & Navbar */}
       <Navbar
         onOpenContact={() => {
@@ -32,7 +54,7 @@ export default function App() {
       />
 
       {/* Main Content Sections */}
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         {/* Hero Section matching Screenshot 1 */}
         <HeroSection />
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { X, Star, CheckCircle, ShieldCheck } from 'lucide-react';
 import { TESTIMONIALS, BUSINESS_DATA } from '../data/realtyData';
+import { useDialogAccessibility } from '../hooks/useDialogAccessibility';
 
 interface TestimonialsModalProps {
   isOpen: boolean;
@@ -8,26 +9,29 @@ interface TestimonialsModalProps {
 }
 
 export const TestimonialsModal: React.FC<TestimonialsModalProps> = ({ isOpen, onClose }) => {
+  const dialogRef = useDialogAccessibility<HTMLDivElement>(isOpen, onClose);
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200">
-      <div className="bg-white w-full max-w-3xl rounded-xs overflow-hidden shadow-2xl relative max-h-[88vh] flex flex-col">
+      <div ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="testimonials-dialog-title" tabIndex={-1} className="bg-white w-full max-w-3xl rounded-xs overflow-hidden shadow-2xl relative max-h-[88vh] flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 bg-neutral-900 text-white border-b border-neutral-800">
           <div>
             <span className="text-[10px] uppercase tracking-widest text-brand-gold-light font-bold font-display">
               Verified Client Stories
             </span>
-            <h3 className="text-lg font-bold font-display">
+            <h3 id="testimonials-dialog-title" className="text-lg font-bold font-display">
               {BUSINESS_DATA.rating.overall.toFixed(1)} ★ Rating across {BUSINESS_DATA.rating.total_reviews} Reviews
             </h3>
           </div>
           <button
             onClick={onClose}
+            type="button"
+            aria-label="Close testimonials dialog"
             className="p-1 rounded-full text-neutral-400 hover:text-white transition-colors cursor-pointer"
           >
-            <X className="w-5 h-5" />
+            <X aria-hidden="true" className="w-5 h-5" />
           </button>
         </div>
 
@@ -41,7 +45,7 @@ export const TestimonialsModal: React.FC<TestimonialsModalProps> = ({ isOpen, on
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1 text-amber-500">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                    <Star key={i} aria-hidden="true" className="w-4 h-4 fill-amber-400 text-amber-400" />
                   ))}
                   <span className="text-xs font-bold text-neutral-800 ml-1">
                     5.0 Star Experience

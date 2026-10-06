@@ -40,7 +40,7 @@ export const TopAreasSection: React.FC<TopAreasSectionProps> = ({ onSelectArea }
             aria-label="Previous area"
             className="absolute -left-3 sm:-left-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-white/90 hover:bg-white text-neutral-800 rounded-full shadow-lg border border-neutral-200 flex items-center justify-center transition-transform hover:scale-105 cursor-pointer"
           >
-            <ChevronLeft className="w-5 h-5" />
+            <ChevronLeft aria-hidden="true" className="w-5 h-5" />
           </button>
 
           {/* Cards Slider */}
@@ -49,10 +49,12 @@ export const TopAreasSection: React.FC<TopAreasSectionProps> = ({ onSelectArea }
               className="grid grid-cols-1 md:grid-cols-2 gap-6 transition-transform duration-300 ease-out"
             >
               {TOP_AREAS.slice(startIndex, startIndex + visibleCount).map((area) => (
-                <div
+                <button
                   key={area.name}
+                  type="button"
                   onClick={() => onSelectArea(area.name)}
-                  className="group relative h-80 sm:h-96 rounded-xs overflow-hidden cursor-pointer shadow-md border border-neutral-200"
+                  aria-label={`View properties in ${area.name}`}
+                  className="group relative h-80 sm:h-96 w-full rounded-xs overflow-hidden cursor-pointer shadow-md border border-neutral-200 text-left"
                 >
                   {/* Background Image */}
                   <img
@@ -82,7 +84,7 @@ export const TopAreasSection: React.FC<TopAreasSectionProps> = ({ onSelectArea }
                       View Properties in {area.name} →
                     </span>
                   </div>
-                </div>
+                </button>
               ))}
             </div>
           </div>
@@ -94,7 +96,7 @@ export const TopAreasSection: React.FC<TopAreasSectionProps> = ({ onSelectArea }
             aria-label="Next area"
             className="absolute -right-3 sm:-right-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-white/90 hover:bg-white text-neutral-800 rounded-full shadow-lg border border-neutral-200 flex items-center justify-center transition-transform hover:scale-105 cursor-pointer"
           >
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight aria-hidden="true" className="w-5 h-5" />
           </button>
         </div>
 
@@ -122,7 +124,7 @@ export const TopAreasSection: React.FC<TopAreasSectionProps> = ({ onSelectArea }
                 onClick={() => onSelectArea(area.replace(', CA', ''))}
                 className="flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-brand-gold-pale hover:border-brand-gold border border-neutral-200 rounded-xs text-xs font-medium text-neutral-700 hover:text-brand-gold-deep transition-all cursor-pointer shadow-2xs"
               >
-                <MapPin className="w-3 h-3 text-neutral-500" />
+                <MapPin aria-hidden="true" className="w-3 h-3 text-neutral-500" />
                 {area}
               </button>
             ))}

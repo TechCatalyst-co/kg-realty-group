@@ -11,6 +11,7 @@ export const ContactAndHoursSection: React.FC = () => {
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [invalidFields, setInvalidFields] = useState<Record<string, boolean>>({});
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,7 +47,7 @@ export const ContactAndHoursSection: React.FC = () => {
               <div className="space-y-5 text-sm">
                 <div className="flex items-start gap-3.5">
                   <div className="w-9 h-9 rounded-xs bg-brand-gold-pale/70 text-brand-gold-deep flex items-center justify-center shrink-0">
-                    <MapPin className="w-4 h-4" />
+                    <MapPin aria-hidden="true" className="w-4 h-4" />
                   </div>
                   <div>
                     <div className="text-xs font-bold text-neutral-400 uppercase tracking-wider font-display">
@@ -69,7 +70,7 @@ export const ContactAndHoursSection: React.FC = () => {
 
                 <div className="flex items-start gap-3.5">
                   <div className="w-9 h-9 rounded-xs bg-brand-gold-pale/70 text-brand-gold-deep flex items-center justify-center shrink-0">
-                    <Phone className="w-4 h-4" />
+                    <Phone aria-hidden="true" className="w-4 h-4" />
                   </div>
                   <div>
                     <div className="text-xs font-bold text-neutral-400 uppercase tracking-wider font-display">
@@ -89,7 +90,7 @@ export const ContactAndHoursSection: React.FC = () => {
 
                 <div className="flex items-start gap-3.5">
                   <div className="w-9 h-9 rounded-xs bg-brand-gold-pale/70 text-brand-gold-deep flex items-center justify-center shrink-0">
-                    <Mail className="w-4 h-4" />
+                    <Mail aria-hidden="true" className="w-4 h-4" />
                   </div>
                   <div>
                     <div className="text-xs font-bold text-neutral-400 uppercase tracking-wider font-display">
@@ -110,7 +111,7 @@ export const ContactAndHoursSection: React.FC = () => {
             <div className="bg-neutral-900 text-white p-6 sm:p-8 rounded-xs shadow-md">
               <div className="flex items-center justify-between mb-4 pb-3 border-b border-neutral-800">
                 <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-brand-gold-deep" />
+                  <Clock aria-hidden="true" className="w-4 h-4 text-brand-gold-deep" />
                   <h3 className="text-sm font-bold tracking-wider uppercase font-display">
                     Business Hours
                   </h3>
@@ -147,7 +148,7 @@ export const ContactAndHoursSection: React.FC = () => {
               </div>
 
               <div className="mt-4 pt-3 text-[11px] text-neutral-400 flex items-center gap-1.5">
-                <Calendar className="w-3.5 h-3.5 text-neutral-400" />
+                <Calendar aria-hidden="true" className="w-3.5 h-3.5 text-neutral-400" />
                 <span>Appointments and private property showings available 7 days a week upon request.</span>
               </div>
             </div>
@@ -175,7 +176,7 @@ export const ContactAndHoursSection: React.FC = () => {
 
               {submitted ? (
                 <div className="p-8 text-center bg-emerald-50 border border-emerald-200 rounded-xs animate-in fade-in duration-300">
-                  <CheckCircle2 className="w-12 h-12 text-emerald-600 mx-auto mb-3" />
+                  <CheckCircle2 aria-hidden="true" className="w-12 h-12 text-emerald-600 mx-auto mb-3" />
                   <h4 className="text-lg font-bold text-neutral-900 font-display">
                     Thank you! Your message has been received.
                   </h4>
@@ -193,57 +194,85 @@ export const ContactAndHoursSection: React.FC = () => {
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 font-display mb-1.5">
+                      <label htmlFor="contact-name" className="block text-xs font-bold uppercase tracking-wider text-neutral-700 font-display mb-1.5">
                         Full Name *
                       </label>
                       <input
+                        id="contact-name"
                         type="text"
                         required
+                        aria-required="true"
+                        aria-invalid={Boolean(invalidFields.name)}
+                        aria-describedby="contact-name-error"
+                        onInvalid={() => setInvalidFields((fields) => ({ ...fields, name: true }))}
                         value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        onChange={(e) => {
+                          setFormData({ ...formData, name: e.target.value });
+                          setInvalidFields((fields) => ({ ...fields, name: false }));
+                        }}
                         placeholder="e.g. John Doe"
-                        className="w-full px-3.5 py-2.5 text-sm bg-neutral-50 border border-neutral-300 rounded-xs focus:bg-white focus:outline-none focus:border-brand-gold-deep"
+                        className="w-full px-3.5 py-2.5 text-sm bg-neutral-50 border border-neutral-300 rounded-xs focus:bg-white focus:border-brand-gold-deep"
                       />
+                      <p id="contact-name-error" role={invalidFields.name ? 'alert' : undefined} className={invalidFields.name ? 'mt-1 text-xs text-red-700' : 'sr-only'}>Enter your full name.</p>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 font-display mb-1.5">
+                      <label htmlFor="contact-phone" className="block text-xs font-bold uppercase tracking-wider text-neutral-700 font-display mb-1.5">
                         Phone Number *
                       </label>
                       <input
+                        id="contact-phone"
                         type="tel"
                         required
+                        aria-required="true"
+                        aria-invalid={Boolean(invalidFields.phone)}
+                        aria-describedby="contact-phone-error"
+                        onInvalid={() => setInvalidFields((fields) => ({ ...fields, phone: true }))}
                         value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        onChange={(e) => {
+                          setFormData({ ...formData, phone: e.target.value });
+                          setInvalidFields((fields) => ({ ...fields, phone: false }));
+                        }}
                         placeholder="(909) 000-0000"
-                        className="w-full px-3.5 py-2.5 text-sm bg-neutral-50 border border-neutral-300 rounded-xs focus:bg-white focus:outline-none focus:border-brand-gold-deep"
+                        className="w-full px-3.5 py-2.5 text-sm bg-neutral-50 border border-neutral-300 rounded-xs focus:bg-white focus:border-brand-gold-deep"
                       />
+                      <p id="contact-phone-error" role={invalidFields.phone ? 'alert' : undefined} className={invalidFields.phone ? 'mt-1 text-xs text-red-700' : 'sr-only'}>Enter your phone number.</p>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 font-display mb-1.5">
+                      <label htmlFor="contact-email" className="block text-xs font-bold uppercase tracking-wider text-neutral-700 font-display mb-1.5">
                         Email Address *
                       </label>
                       <input
+                        id="contact-email"
                         type="email"
                         required
+                        aria-required="true"
+                        aria-invalid={Boolean(invalidFields.email)}
+                        aria-describedby="contact-email-error"
+                        onInvalid={() => setInvalidFields((fields) => ({ ...fields, email: true }))}
                         value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        onChange={(e) => {
+                          setFormData({ ...formData, email: e.target.value });
+                          setInvalidFields((fields) => ({ ...fields, email: false }));
+                        }}
                         placeholder="john@example.com"
-                        className="w-full px-3.5 py-2.5 text-sm bg-neutral-50 border border-neutral-300 rounded-xs focus:bg-white focus:outline-none focus:border-brand-gold-deep"
+                        className="w-full px-3.5 py-2.5 text-sm bg-neutral-50 border border-neutral-300 rounded-xs focus:bg-white focus:border-brand-gold-deep"
                       />
+                      <p id="contact-email-error" role={invalidFields.email ? 'alert' : undefined} className={invalidFields.email ? 'mt-1 text-xs text-red-700' : 'sr-only'}>Enter a valid email address.</p>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 font-display mb-1.5">
+                      <label htmlFor="contact-interest" className="block text-xs font-bold uppercase tracking-wider text-neutral-700 font-display mb-1.5">
                         I am interested in:
                       </label>
                       <select
+                        id="contact-interest"
                         value={formData.interest}
                         onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
-                        className="w-full px-3.5 py-2.5 text-sm bg-neutral-50 border border-neutral-300 rounded-xs focus:bg-white focus:outline-none focus:border-brand-gold-deep"
+                        className="w-full px-3.5 py-2.5 text-sm bg-neutral-50 border border-neutral-300 rounded-xs focus:bg-white focus:border-brand-gold-deep"
                       >
                         <option value="Buying a Home">Buying a Home</option>
                         <option value="Selling a Home">Selling a Home</option>
@@ -256,17 +285,26 @@ export const ContactAndHoursSection: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 font-display mb-1.5">
+                    <label htmlFor="contact-message" className="block text-xs font-bold uppercase tracking-wider text-neutral-700 font-display mb-1.5">
                       How Can We Help? *
                     </label>
                     <textarea
+                      id="contact-message"
                       rows={4}
                       required
+                      aria-required="true"
+                      aria-invalid={Boolean(invalidFields.message)}
+                      aria-describedby="contact-message-error"
+                      onInvalid={() => setInvalidFields((fields) => ({ ...fields, message: true }))}
                       value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      onChange={(e) => {
+                        setFormData({ ...formData, message: e.target.value });
+                        setInvalidFields((fields) => ({ ...fields, message: false }));
+                      }}
                       placeholder="Tell us about the property, your ideal timeframe, preferred neighborhoods, or price range..."
-                      className="w-full px-3.5 py-2.5 text-sm bg-neutral-50 border border-neutral-300 rounded-xs focus:bg-white focus:outline-none focus:border-brand-gold-deep"
+                      className="w-full px-3.5 py-2.5 text-sm bg-neutral-50 border border-neutral-300 rounded-xs focus:bg-white focus:border-brand-gold-deep"
                     />
+                    <p id="contact-message-error" role={invalidFields.message ? 'alert' : undefined} className={invalidFields.message ? 'mt-1 text-xs text-red-700' : 'sr-only'}>Tell us how we can help.</p>
                   </div>
 
                   <div className="pt-2">
@@ -276,7 +314,7 @@ export const ContactAndHoursSection: React.FC = () => {
                       className="w-full sm:w-auto bg-brand-ink hover:bg-brand-charcoal text-brand-gold-light px-8 py-3 text-xs sm:text-sm font-bold uppercase tracking-wider rounded-xs transition-colors shadow-xs active:translate-y-px cursor-pointer flex items-center justify-center gap-2"
                     >
                       <span>Send Message</span>
-                      <Send className="w-4 h-4" />
+                      <Send aria-hidden="true" className="w-4 h-4" />
                     </button>
                   </div>
                 </form>
@@ -284,7 +322,7 @@ export const ContactAndHoursSection: React.FC = () => {
             </div>
 
             <div className="mt-8 pt-6 border-t border-neutral-100 text-[11px] text-neutral-500 flex items-center gap-2">
-              <Shield className="w-4 h-4 text-neutral-400 shrink-0" />
+              <Shield aria-hidden="true" className="w-4 h-4 text-neutral-400 shrink-0" />
               <span>Your contact information is strictly confidential and will never be shared or sold.</span>
             </div>
           </div>
