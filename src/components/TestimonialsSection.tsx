@@ -41,9 +41,6 @@ export const TestimonialsSection: React.FC = () => {
                     <Star key={`${testimonial.id}-star-${index}`} aria-hidden="true" className="w-4 h-4 fill-brand-gold-light text-brand-gold-light" />
                   ))}
                 </div>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 font-display">
-                  {testimonial.date}
-                </span>
               </div>
 
               <h3 className="text-xl font-bold text-white font-display leading-tight">
