@@ -40,7 +40,7 @@ export const StatsBanner: React.FC = () => {
               <div
                 key={idx}
                 className={`flex flex-col items-center text-center px-4 ${
-                  idx > 0 ? 'pt-6 md:pt-0' : ''
+                  idx >= 2 ? 'pt-6 md:pt-0' : ''
                 }`}
               >
                 <div className="flex items-center gap-1.5 text-brand-gold-light mb-1.5">

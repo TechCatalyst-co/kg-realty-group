@@ -57,17 +57,34 @@ export const HeroSection: React.FC = () => {
               <p className="mt-0.5 text-xs text-neutral-300">KG Realty Group / eXp Realty</p>
             </figcaption>
           </div>
-          <ul
-            aria-label="Real estate specialties"
-            className="grid w-full grid-cols-1 gap-y-2 border-t border-white/15 pt-4 text-sm font-medium text-neutral-200 sm:grid-cols-2 sm:gap-x-4"
-          >
-            <li className="border-l border-brand-gold/70 pl-2.5">Buyer's Agent</li>
-            <li className="border-l border-brand-gold/70 pl-2.5">Listing Agent</li>
-            <li className="border-l border-brand-gold/70 pl-2.5">First Time Homebuyers</li>
-            <li className="border-l border-brand-gold/70 pl-2.5">Investment Properties</li>
-            <li className="border-l border-brand-gold/70 pl-2.5">Rentals</li>
-            <li className="border-l border-brand-gold/70 pl-2.5">Luxury Properties</li>
-          </ul>
+          <div aria-label="Real estate specialties" className="grid w-full grid-cols-2 gap-4 border-t border-white/15 pt-4 text-sm text-neutral-200">
+            <section aria-labelledby="listing-specialties-heading">
+              <h2 id="listing-specialties-heading" className="mb-3 font-display text-xs font-bold uppercase tracking-wider text-brand-gold-light">
+                Listing Specialist
+              </h2>
+              <ul className="space-y-2 font-medium">
+                <li className="border-l border-brand-gold/70 pl-2.5">Luxury Properties</li>
+                <li className="border-l border-brand-gold/70 pl-2.5">Multi-Family</li>
+                <li className="border-l border-brand-gold/70 pl-2.5">Commercial</li>
+                <li className="border-l border-brand-gold/70 pl-2.5">Probate/Distressed</li>
+                <li className="border-l border-brand-gold/70 pl-2.5">Divorce Real Estate</li>
+                <li className="border-l border-brand-gold/70 pl-2.5">Investment Properties</li>
+              </ul>
+            </section>
+            <section aria-labelledby="buyers-specialties-heading">
+              <h2 id="buyers-specialties-heading" className="mb-3 font-display text-xs font-bold uppercase tracking-wider text-brand-gold-light">
+                Buyer's Agent
+              </h2>
+              <ul className="space-y-2 font-medium">
+                <li className="border-l border-brand-gold/70 pl-2.5">Luxury Property Listings</li>
+                <li className="border-l border-brand-gold/70 pl-2.5">Multi-Family Listings</li>
+                <li className="border-l border-brand-gold/70 pl-2.5">Commercial</li>
+                <li className="border-l border-brand-gold/70 pl-2.5">Investment Properties</li>
+                <li className="border-l border-brand-gold/70 pl-2.5">First Time Buyers</li>
+                <li className="border-l border-brand-gold/70 pl-2.5">Down Payment Assistance</li>
+              </ul>
+            </section>
+          </div>
         </figure>
       </div>
     </section>
