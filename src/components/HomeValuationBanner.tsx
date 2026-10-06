@@ -81,6 +81,9 @@ export const HomeValuationBanner: React.FC<HomeValuationBannerProps> = ({
             Get Estimate
           </button>
         </form>
+        <p className="mt-3 max-w-2xl text-left text-[11px] leading-relaxed text-neutral-200">
+          By submitting this form, you agree to our <a href="/privacy-policy" className="underline underline-offset-2">Privacy Policy</a>. California residents can review their rights under CCPA/CPRA <a href="/privacy-policy" className="underline underline-offset-2">here</a>.
+        </p>
 
         {/* Trust Badges */}
         <div className="mt-6 flex flex-wrap items-center justify-center gap-6 text-xs text-neutral-300 font-medium">

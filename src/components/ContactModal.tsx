@@ -179,6 +179,9 @@ export const ContactModal: React.FC<ContactModalProps> = ({
                 >
                   Submit & Connect With Kevin
                 </button>
+                <p className="mt-3 text-[11px] leading-relaxed text-neutral-500">
+                  By submitting this form, you agree to our <a href="/privacy-policy" className="underline underline-offset-2">Privacy Policy</a>. California residents can review their rights under CCPA/CPRA <a href="/privacy-policy" className="underline underline-offset-2">here</a>.
+                </p>
               </div>
 
               <div className="pt-3 border-t border-neutral-100 flex items-center justify-between text-[11px] text-neutral-500">

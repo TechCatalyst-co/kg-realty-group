@@ -50,7 +50,10 @@ export const Footer: React.FC = () => {
               <li><a href={sectionHref('home-value')} className="hover:text-white transition-colors">Home Valuation</a></li>
               <li><a href={sectionHref('testimonials')} className="hover:text-white transition-colors">Client Reviews</a></li>
               <li><a href={sectionHref('contact')} className="hover:text-white transition-colors">Contact & Hours</a></li>
+              <li><a href="/terms" className="hover:text-white transition-colors">Terms of Use</a></li>
               <li><a href="/accessibility" className="hover:text-white transition-colors">Accessibility Statement</a></li>
+              <li><a href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</a></li>
+              <li><a href="/do-not-sell" className="hover:text-white transition-colors">Do Not Sell or Share My Personal Information</a></li>
             </ul>
           </div>
 

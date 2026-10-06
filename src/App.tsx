@@ -11,6 +11,9 @@ import { ListingModal } from './components/ListingModal';
 import { ContactModal } from './components/ContactModal';
 import { PropertyListing } from './types';
 import { AccessibilityStatement } from './pages/AccessibilityStatement';
+import { PrivacyPolicy } from './pages/PrivacyPolicy';
+import { DoNotSell } from './pages/DoNotSell';
+import { TermsOfService } from './pages/TermsOfService';
 
 export default function App() {
   const [selectedListing, setSelectedListing] = useState<PropertyListing | null>(null);
@@ -22,20 +25,27 @@ export default function App() {
     setIsContactOpen(true);
   };
 
-  if (window.location.pathname === '/accessibility') {
+  const currentPath = window.location.pathname.replace(/\/+$/, '') || '/';
+  const isPolicyRoute = ['/accessibility', '/privacy-policy', '/do-not-sell', '/terms'].includes(currentPath);
+
+  if (isPolicyRoute) {
     return (
       <div className="min-h-screen flex flex-col bg-white text-neutral-900 font-sans">
         <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-white focus:px-4 focus:py-3 focus:text-neutral-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
           Skip to main content
         </a>
         <Navbar onOpenContact={() => setIsContactOpen(true)} />
-        <AccessibilityStatement />
+        {currentPath === '/accessibility' && <AccessibilityStatement />}
+        {currentPath === '/privacy-policy' && <PrivacyPolicy />}
+        {currentPath === '/do-not-sell' && <DoNotSell />}
+        {currentPath === '/terms' && <TermsOfService />}
         <Footer />
         <ContactModal
           isOpen={isContactOpen}
           onClose={() => setIsContactOpen(false)}
           prefilledTopic={contactTopic}
         />
+        {/* Disabled: Site currently operates cookieless */}
       </div>
     );
   }
@@ -97,6 +107,8 @@ export default function App() {
         onClose={() => setIsContactOpen(false)}
         prefilledTopic={contactTopic}
       />
+
+      {/* Disabled: Site currently operates cookieless */}
 
     </div>
   );
