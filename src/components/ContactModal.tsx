@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { X, Phone, Mail, MapPin, CheckCircle2, Send, Clock } from 'lucide-react';
 import { BUSINESS_DATA } from '../data/realtyData';
 import { useDialogAccessibility } from '../hooks/useDialogAccessibility';
+import { submitLeadForm } from '../lib/formspree';
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -20,13 +21,40 @@ export const ContactModal: React.FC<ContactModalProps> = ({
   const [phone, setPhone] = useState('');
   const [message, setMessage] = useState(prefilledTopic ? `Regarding: ${prefilledTopic}` : '');
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [invalidFields, setInvalidFields] = useState<Record<string, boolean>>({});
+
+  useEffect(() => {
+    if (isOpen) {
+      setName('');
+      setEmail('');
+      setPhone('');
+      setMessage(prefilledTopic ? `Regarding: ${prefilledTopic}` : '');
+      setSent(false);
+      setSubmitError('');
+    }
+  }, [isOpen, prefilledTopic]);
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSent(true);
+    setSubmitting(true);
+    setSubmitError('');
+
+    const formType = prefilledTopic?.startsWith('Home Valuation')
+      ? 'Home valuation request'
+      : 'Contact modal inquiry';
+
+    try {
+      await submitLeadForm(formType, { name, email, phone, message });
+      setSent(true);
+    } catch {
+      setSubmitError('Your message could not be sent. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -175,10 +203,12 @@ export const ContactModal: React.FC<ContactModalProps> = ({
               <div className="pt-2">
                 <button
                   type="submit"
+                  disabled={submitting}
                   className="w-full bg-brand-ink hover:bg-brand-charcoal text-brand-gold-light py-3 text-xs font-bold uppercase tracking-wider rounded-xs transition-colors cursor-pointer"
                 >
-                  Submit & Connect With Kevin
+                  {submitting ? 'Sending...' : 'Submit & Connect With Kevin'}
                 </button>
+                {submitError && <p role="alert" className="mt-3 text-sm font-medium text-red-700">{submitError}</p>}
                 <p className="mt-3 text-[11px] leading-relaxed text-neutral-500">
                   By submitting this form, you agree to our <a href="/privacy-policy" className="underline underline-offset-2">Privacy Policy</a>. California residents can review their rights under CCPA/CPRA <a href="/privacy-policy" className="underline underline-offset-2">here</a>.
                 </p>

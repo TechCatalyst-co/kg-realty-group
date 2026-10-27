@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle2, Shield, Calendar, UserCheck } from 'lucide-react';
 import { BUSINESS_DATA } from '../data/realtyData';
+import { submitLeadForm } from '../lib/formspree';
 
 export const ContactAndHoursSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -11,11 +12,23 @@ export const ContactAndHoursSection: React.FC = () => {
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [invalidFields, setInvalidFields] = useState<Record<string, boolean>>({});
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitting(true);
+    setSubmitError('');
+
+    try {
+      await submitLeadForm('Website contact form', formData);
+      setSubmitted(true);
+    } catch {
+      setSubmitError('Your message could not be sent. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const daysOrder = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -184,7 +197,10 @@ export const ContactAndHoursSection: React.FC = () => {
                     An associate will contact you shortly at {formData.email || 'your email'}.
                   </p>
                   <button
-                    onClick={() => setSubmitted(false)}
+                    onClick={() => {
+                      setSubmitted(false);
+                      setFormData({ name: '', email: '', phone: '', interest: 'Buying a Home', message: '' });
+                    }}
                     className="mt-6 text-xs font-bold text-brand-gold-deep hover:text-brand-ink underline uppercase tracking-wider cursor-pointer"
                   >
                     Send another inquiry
@@ -311,11 +327,13 @@ export const ContactAndHoursSection: React.FC = () => {
                     <button
                       id="contact-submit-btn"
                       type="submit"
+                      disabled={submitting}
                       className="w-full sm:w-auto bg-brand-ink hover:bg-brand-charcoal text-brand-gold-light px-8 py-3 text-xs sm:text-sm font-bold uppercase tracking-wider rounded-xs transition-colors shadow-xs active:translate-y-px cursor-pointer flex items-center justify-center gap-2"
                     >
-                      <span>Send Message</span>
+                      <span>{submitting ? 'Sending...' : 'Send Message'}</span>
                       <Send aria-hidden="true" className="w-4 h-4" />
                     </button>
+                    {submitError && <p role="alert" className="mt-3 text-sm font-medium text-red-700">{submitError}</p>}
                     <p className="mt-3 max-w-xl text-[11px] leading-relaxed text-neutral-500">
                       By submitting this form, you agree to our <a href="/privacy-policy" className="underline underline-offset-2">Privacy Policy</a>. California residents can review their rights under CCPA/CPRA <a href="/privacy-policy" className="underline underline-offset-2">here</a>.
                     </p>
