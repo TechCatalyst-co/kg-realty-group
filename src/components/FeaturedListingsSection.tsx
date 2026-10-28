@@ -28,7 +28,7 @@ export const FeaturedListingsSection: React.FC<FeaturedListingsSectionProps> = (
         <div className="mb-10 overflow-hidden rounded-xs border border-neutral-200 bg-neutral-50">
           <iframe
             title="CRMLS agent listings"
-            src="https://www.crmls.org/servlet/lDisplayListings?OFFICE=52881&LA=EN"
+            src="https://apexidx.com/idx_lite/featured-offices/EN_LA/52881_OFFICE/story_orderBy/desc_order/1_p"
             className="block h-[1000px] w-full"
             loading="eager"
           />

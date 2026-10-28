@@ -72,9 +72,10 @@ export default function App() {
         <StatsBanner />
 
         {/* Featured Listings Section matching Screenshots 2 & 4 */}
-        <FeaturedListingsSection
+        {/* Temporarily hidden - component remains available in src/components/FeaturedListingsSection.tsx */}
+        {/* <FeaturedListingsSection
           onSelectListing={(listing) => setSelectedListing(listing)}
-        />
+        /> */}
 
         {/* Home Valuation Banner matching bottom of Screenshot 4 */}
         <HomeValuationBanner onOpenValuationModal={handleOpenValuationModal} />
